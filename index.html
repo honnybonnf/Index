@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BGMI Comeback — Demo</title>
+  <style>
+    :root{
+      --accent1:#0ea5e9;
+      --accent2:#7c3aed;
+      --card-bg:#111827;
+      --muted:#9ca3af;
+    }
+    *{box-sizing:border-box;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}
+    body{margin:0;background:linear-gradient(180deg,#0f172a 0%, #071029 100%);color:#fff;min-height:100vh}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+    .brand h1{margin:0;font-size:18px}
+    .container{max-width:980px;margin:26px auto;padding:12px}
+    .hero{display:flex;gap:20px;flex-wrap:wrap}
+    .left, .right{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .left{flex:1;min-width:280px}
+    .right{flex:2;min-width:320px}
+    .title{font-size:20px;margin-bottom:8px}
+    .muted{color:var(--muted);font-size:14px}
+    /* login */
+    .login-box{margin-top:12px}
+    label{display:block;font-size:13px;margin:10px 0 6px;color:var(--muted)}
+    input[type="text"], input[type="password"]{
+      width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;
+    }
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;font-weight:600;margin-top:12px;cursor:pointer}
+    .note{font-size:13px;color:#fbbf24;margin-top:8px}
+    /* cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;text-align:center}
+    .card img{width:100%;height:96px;object-fit:cover;border-radius:8px;background:#0b1220}
+    .collect{display:inline-block;margin-top:8px;padding:6px 8px;border-radius:8px;background:#ef4444;color:#fff;font-weight:600}
+    footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+    /* responsive */
+    @media (max-width:720px){
+      .hero{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">SP</div>
+      <div>
+        <h1>Shivam Panel — Demo</h1>
+        <div class="muted">BGMI Comeback • Demo Mode</div>
+      </div>
+    </div>
+    <div class="muted">Demo — credentials are not saved</div>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <section class="left">
+        <div class="title">Login (Demo)</div>
+        <div class="muted">Yeh sirf demo hai — koi data store nahi hota.</div>
+
+        <div class="login-box" id="loginBox">
+          <label for="user">Username</label>
+          <input id="user" type="text" placeholder="Enter username (demo)" />
+
+          <label for="pass">Password</label>
+          <input id="pass" type="password" placeholder="Enter password (demo)" />
+
+          <button class="btn" id="loginBtn">LOGIN (Demo)</button>
+          <div class="note" id="loginNote">Demo mode: credentials will not be transmitted.</div>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="muted">Tips for using this demo:</div>
+          <ul style="color:var(--muted);padding-left:18px">
+            <li>Is page ka maksad UI testing aur learning hai.</li>
+            <li>Real credentials kabhi yahan daalein nahin.</li>
+            <li>Aap yeh file local ya GitHub Pages par host kar sakte ho.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="right">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div>
+            <div class="title">BGMI Comeback Event</div>
+            <div class="muted">Collect cool skins & prizes — demo listing</div>
+          </div>
+          <div class="muted">Event ends in: <strong>— demo —</strong></div>
+        </div>
+
+        <div class="grid" id="cardsGrid">
+          <!-- Cards will be inserted by JS -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    This is a demo / mock site for learning only — not for phishing or real logins.
+  </footer>
+
+  <script>
+    // Demo cards data (placeholders)
+    const demoItems = [
+      {title: "X-Suit Alpha", img:"https://via.placeholder.com/400x300?text=X-Suit+Alpha"},
+      {title: "X-Suit Omega", img:"https://via.placeholder.com/400x300?text=X-Suit+Omega"},
+      {title: "Royal Armor", img:"https://via.placeholder.com/400x300?text=Royal+Armor"},
+      {title: "Assault Rifle Skin", img:"https://via.placeholder.com/400x300?text=AR+Skin"},
+      {title: "Legendary M4", img:"https://via.placeholder.com/400x300?text=Legendary+M4"},
+      {title: "Sports Car Skin", img:"https://via.placeholder.com/400x300?text=Car+Skin"}
+    ];
+
+    const grid = document.getElementById('cardsGrid');
+    demoItems.forEach(it=>{
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <img src="${it.img}" alt="${it.title}" />
+        <div style="margin-top:8px;font-weight:600">${it.title}</div>
+        <div class="collect" role="button" tabindex="0" onclick="collectDemo('${it.title}')">Collect</div>
+      `;
+      grid.appendChild(div);
+    });
+
+    function collectDemo(name){
+      alert('Demo: "'+name+'" ko collect karne ka action simulate hua (no real prize).');
+    }
+
+    // Login button handler — demo only
+    document.getElementById('loginBtn').addEventListener('click', function(){
+      const u = document.getElementById('user').value.trim();
+      // Do NOT send to server. This is demo-only.
+      if(!u){
+        alert('Demo: username daalein.');
+        return;
+      }
+      // Show a demo message
+      document.getElementById('loginNote').textContent = 'Demo login successful — (no credentials stored).';
+      // For safety, clear the fields
+      document.getElementById('user').value = '';
+      document.getElementById('pass').value = '';
+    });
+  </script>
+</body>
+</html>
